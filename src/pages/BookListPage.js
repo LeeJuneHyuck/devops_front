@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
-const API_BASE = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8088/api';
-const API_SEARCH_URL = `${API_BASE.replace(/\/$/, '')}/search`;
+const API_BASE =
+  process.env.REACT_APP_API_BASE_URL || "http://localhost:8088/api";
+const API_SEARCH_URL = `${API_BASE.replace(/\/$/, "")}/search`;
 
 function BookListPage() {
   const [books, setBooks] = useState([]);
@@ -19,13 +20,16 @@ function BookListPage() {
         const data = await res.json();
         if (!cancelled) setBooks(Array.isArray(data) ? data : []);
       } catch (e) {
-        if (!cancelled) setError(e.message || '도서 목록을 불러오지 못했습니다.');
+        if (!cancelled)
+          setError(e.message || "도서 목록을 불러오지 못했습니다.");
       } finally {
         if (!cancelled) setLoading(false);
       }
     }
     fetchBooks();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   if (loading) {
@@ -47,7 +51,9 @@ function BookListPage() {
         </div>
         <div className="book-list-error">
           <p>{error}</p>
-          <p className="book-list-error-hint">API 서버({API_BASE})가 실행 중인지 확인해 주세요.</p>
+          <p className="book-list-error-hint">
+            API 서버({API_BASE})가 실행 중인지 확인해 주세요.
+          </p>
         </div>
       </div>
     );
